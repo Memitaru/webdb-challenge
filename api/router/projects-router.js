@@ -27,8 +27,9 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const project = await Projects.findById(req.params.id)
+        const actions = await Projects.findProjectActions(req.params.id)
         if (project){
-            res.status(200).json(project)
+            res.status(200).json({project, actions})
         } else {
             res.status(404).json({error: "No project with that ID"})
         }
