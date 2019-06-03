@@ -24,5 +24,32 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.get('/:id', async (req, res) => {
+    try {
+        const project = await Projects.findById(req.params.id)
+        if (project){
+            res.status(200).json(project)
+        } else {
+            res.status(404).json({error: "No project with that ID"})
+        }
+
+    } catch(err) {
+        res.status(500).json(err.message)
+    }
+})
+
+router.get('/:id/actions', async (req, res) =>{
+    try {
+        const actions = await Projects.findProjectActions(req.params.id)
+        if (actions) {
+            res.status(200).json(actions)
+        } else {
+            res.status(404).json({error: "No project at that ID"})
+        }
+    } catch(err){
+        res.status(500).json(err.message)
+    }
+})
+
 
 module.exports = router;

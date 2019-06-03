@@ -4,7 +4,7 @@ module.exports = {
     find,
     findById,
     add,
-    getProjectActions
+    findProjectActions
 }
 
 function find() {
@@ -26,7 +26,7 @@ function add(project){
     })
 }
 
-function getProjectActions(id){
+function findProjectActions(id){
     return db('projects')
     .where({id: id})
     .then(projects => {
